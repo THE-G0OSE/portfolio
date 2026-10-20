@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // NestJS api has its own eslint config
+    "backend/**",
   ]),
 ]);
 

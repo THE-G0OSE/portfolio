@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* api code has no tailwind classes */
+@source not "../../backend";
+
+/* COLORS — static, so every color is emitted even if only used inside @utility or inline styles */
+
+@theme static {
+    --color-ink: #141210;
+    --color-paper: #F3EBD6;
+    --color-paper-shade: #EFE3C2;
+    --color-cream: #FFFDF6;
+    --color-comic-yellow: #FFCC2E;
+    --color-comic-red: #C8321F;
+    --color-comic-blue: #2459C4;
+    --color-beak: #F08A24;
+
+    /* halftone dots */
+    --color-dot-paper: color-mix(in srgb, var(--color-ink) 7%, transparent);
+    --color-dot-blue: color-mix(in srgb, var(--color-white) 28%, transparent);
+    --color-dot-yellow: color-mix(in srgb, var(--color-comic-red) 32%, transparent);
+    --color-dot-red: color-mix(in srgb, var(--color-ink) 25%, transparent);
+    --color-dot-ink: color-mix(in srgb, var(--color-comic-yellow) 18%, transparent);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --font-comic: var(--next-font-comic-neue), 'Comic Sans MS', 'Chalkboard SE', cursive;
+    --font-mono: var(--next-font-space-mono), 'Courier New', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* FONTS */
+
+@utility font-bangers {
+    font-family: var(--next-font-bangers), Impact, Haettenschweiler, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* HALFTONES */
+
+@utility paper {
+    background-color: var(--color-paper);
+    background-image: radial-gradient(var(--color-dot-paper) 1px, transparent 1.4px);
+    background-size: 7px 7px;
+}
+
+@utility ht-blue {
+    background-color: var(--color-comic-blue);
+    background-image: radial-gradient(var(--color-dot-blue) 30%, transparent 33%);
+    background-size: 9px 9px;
+}
+
+@utility ht-yellow {
+    background-color: var(--color-comic-yellow);
+    background-image: radial-gradient(var(--color-dot-yellow) 26%, transparent 29%);
+    background-size: 10px 10px;
+}
+
+@utility ht-red {
+    background-color: var(--color-comic-red);
+    background-image: radial-gradient(var(--color-dot-red) 26%, transparent 29%);
+    background-size: 8px 8px;
+}
+
+@utility ht-ink {
+    background-color: var(--color-ink);
+    background-image: radial-gradient(var(--color-dot-ink) 26%, transparent 29%);
+    background-size: 9px 9px;
+}
+
+@utility speed-lines {
+    background-color: var(--color-cream);
+    background-image: repeating-conic-gradient(from 0deg at 50% 20%, var(--color-cream) 0deg 5deg, var(--color-paper-shade) 5deg 10deg);
+}
+
+/* SCROLL */
+
+@utility comic-scroll {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink) transparent;
+}
+
+/* SHAPES */
+
+@utility burst-12 {
+    clip-path: polygon(99.8% 55.0%, 83.7% 62.7%, 90.6% 79.2%, 72.8% 77.9%, 70.6% 95.6%, 55.8% 85.5%, 45.0% 99.8%, 37.3% 83.7%, 20.8% 90.6%, 22.1% 72.8%, 4.4% 70.6%, 14.5% 55.8%, 0.2% 45.0%, 16.3% 37.3%, 9.4% 20.8%, 27.2% 22.1%, 29.4% 4.4%, 44.2% 14.5%, 55.0% 0.2%, 62.7% 16.3%, 79.2% 9.4%, 77.9% 27.2%, 95.6% 29.4%, 85.5% 44.2%);
+}
+
+@utility burst-16 {
+    clip-path: polygon(100.0% 50.0%, 89.2% 57.8%, 96.2% 69.1%, 83.3% 72.2%, 85.4% 85.4%, 72.2% 83.3%, 69.1% 96.2%, 57.8% 89.2%, 50.0% 100.0%, 42.2% 89.2%, 30.9% 96.2%, 27.8% 83.3%, 14.6% 85.4%, 16.7% 72.2%, 3.8% 69.1%, 10.8% 57.8%, 0.0% 50.0%, 10.8% 42.2%, 3.8% 30.9%, 16.7% 27.8%, 14.6% 14.6%, 27.8% 16.7%, 30.9% 3.8%, 42.2% 10.8%, 50.0% 0.0%, 57.8% 10.8%, 69.1% 3.8%, 72.2% 16.7%, 85.4% 14.6%, 83.3% 27.8%, 96.2% 30.9%, 89.2% 42.2%);
+}
+
+.shadow-blink {
+    box-shadow: var(--color-white) 0 0 4px 4px;
 }

@@ -1,0 +1,94 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// colors from the site theme, frontend maps them to tailwind classes
+enum ComicColor {
+  YELLOW
+  RED
+  BLUE
+  WHITE
+  INK
+}
+
+// single row (id = 1) with personal info shown across the page
+model Profile {
+  id            Int      @id @default(1)
+  name          String
+  location      String
+  age           Int      @default(0)
+  yearsInIt     Int      @default(0)
+  hatchedYear   String
+  firstCodeYear String
+  issue         String
+  issueDate     String
+  totalFlock    String
+  // fullscreen hero card, empty string shows a placeholder on the site
+  tagline       String   @default("")
+  bio           String   @default("")
+  languages     String   @default("")
+  currently     String   @default("")
+  hobbies       String   @default("")
+  email         String   @default("")
+  updatedAt     DateTime @updatedAt
+}
+
+model StackCategory {
+  id    Int         @id @default(autoincrement())
+  label String
+  title String
+  sfx   String
+  part  String
+  color ComicColor  @default(YELLOW)
+  order Int         @default(0)
+  items StackItem[]
+}
+
+model StackItem {
+  id         Int           @id @default(autoincrement())
+  name       String
+  level      Int
+  order      Int           @default(0)
+  categoryId Int
+  category   StackCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Job {
+  id      Int        @id @default(autoincrement())
+  period  String
+  role    String
+  company String
+  impact  String
+  color   ComicColor @default(RED)
+  order   Int        @default(0)
+}
+
+model Project {
+  id          Int        @id @default(autoincrement())
+  tag         String
+  name        String
+  description String
+  tech        String[]
+  color       ComicColor @default(YELLOW)
+  liveUrl     String?
+  codeUrl     String?
+  order       Int        @default(0)
+}
+
+model Social {
+  id     Int        @id @default(autoincrement())
+  name   String
+  handle String
+  count  String
+  unit   String
+  href   String
+  color  ComicColor @default(WHITE)
+  tilt   Float      @default(0)
+  order  Int        @default(0)
+}

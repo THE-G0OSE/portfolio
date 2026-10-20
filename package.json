@@ -6,9 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "api:dev": "yarn --cwd backend start:dev",
+    "api:setup": "yarn --cwd backend install && yarn --cwd backend db:deploy && yarn --cwd backend db:seed"
   },
   "dependencies": {
+    "@reatom/core": "^1001.3.0",
+    "@reatom/react": "^1001.0.1",
+    "motion": "^12.43.0",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"

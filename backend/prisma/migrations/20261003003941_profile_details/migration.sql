@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Profile" ADD COLUMN     "bio" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "currently" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "email" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "hobbies" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "languages" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "tagline" TEXT NOT NULL DEFAULT '';
